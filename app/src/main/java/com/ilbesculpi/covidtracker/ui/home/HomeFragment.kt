@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.ilbesculpi.covidtracker.R
 import com.ilbesculpi.covidtracker.ui.controls.StatsView
+import com.ilbesculpi.covidtracker.utils.formatThousands
 
 class HomeFragment : Fragment() {
 
@@ -46,12 +47,12 @@ class HomeFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         viewModel.fetchSummary()
         viewModel.globalSummary.observe(this, {
-            newConfirmedView.count = it.newConfirmed.toString()
-            newDeathsView.count = it.newDeaths.toString()
-            newRecoveredView.count = it.newRecovered.toString()
-            totalConfirmedView.count = it.totalConfirmed.toString()
-            totalDeathsView.count = it.totalDeaths.toString()
-            totalRecoveredView.count = it.totalRecovered.toString()
+            newConfirmedView.count = it.newConfirmed.formatThousands()
+            newDeathsView.count = it.newDeaths.formatThousands()
+            newRecoveredView.count = it.newRecovered.formatThousands()
+            totalConfirmedView.count = it.totalConfirmed.formatThousands()
+            totalDeathsView.count = it.totalDeaths.formatThousands()
+            totalRecoveredView.count = it.totalRecovered.formatThousands()
         })
     }
 
