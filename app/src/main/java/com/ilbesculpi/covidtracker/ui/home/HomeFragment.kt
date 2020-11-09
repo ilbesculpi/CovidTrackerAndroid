@@ -8,37 +8,29 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.ilbesculpi.covidtracker.R
+import com.ilbesculpi.covidtracker.databinding.HomeFragmentBinding
 import com.ilbesculpi.covidtracker.ui.controls.StatsView
 import com.ilbesculpi.covidtracker.utils.formatThousands
 
 class HomeFragment : Fragment() {
 
     /// region - Properties
-    private lateinit var newConfirmedView: StatsView
-    private lateinit var newDeathsView: StatsView
-    private lateinit var newRecoveredView: StatsView
-    private lateinit var totalConfirmedView: StatsView
-    private lateinit var totalDeathsView: StatsView
-    private lateinit var totalRecoveredView: StatsView
+    private lateinit var binding: HomeFragmentBinding
+    private lateinit var viewModel: HomeViewModel
     /// endregion
 
     companion object {
         fun newInstance() = HomeFragment()
     }
 
-    private lateinit var viewModel: HomeViewModel
 
     /// region - View Lifecycle
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.home_fragment, container, false)
-        newConfirmedView = view.findViewById(R.id.stats_new_confirmed)
-        newDeathsView = view.findViewById(R.id.stats_new_deaths)
-        newRecoveredView = view.findViewById(R.id.stats_new_recovered)
-        totalConfirmedView = view.findViewById(R.id.stats_total_confirmed)
-        totalDeathsView = view.findViewById(R.id.stats_total_deaths)
-        totalRecoveredView = view.findViewById(R.id.stats_total_recovered)
+        //val view = inflater.inflate(R.layout.home_fragment, container, false)
+        binding = HomeFragmentBinding.inflate(inflater, container, false)
+        val view = binding.root
         return view
     }
 
@@ -47,12 +39,12 @@ class HomeFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         viewModel.fetchSummary()
         viewModel.globalSummary.observe(this, {
-            newConfirmedView.count = it.newConfirmed.formatThousands()
-            newDeathsView.count = it.newDeaths.formatThousands()
-            newRecoveredView.count = it.newRecovered.formatThousands()
-            totalConfirmedView.count = it.totalConfirmed.formatThousands()
-            totalDeathsView.count = it.totalDeaths.formatThousands()
-            totalRecoveredView.count = it.totalRecovered.formatThousands()
+            binding.statsNewConfirmed.count = it.newConfirmed.formatThousands()
+            binding.statsNewDeaths.count = it.newDeaths.formatThousands()
+            binding.statsNewRecovered.count = it.newRecovered.formatThousands()
+            binding.statsTotalConfirmed.count = it.totalConfirmed.formatThousands()
+            binding.statsTotalDeaths.count = it.totalDeaths.formatThousands()
+            binding.statsTotalRecovered.count = it.totalRecovered.formatThousands()
         })
     }
 
