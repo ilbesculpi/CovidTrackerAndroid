@@ -15,5 +15,4 @@ data class GlobalSummary(
         val newRecovered: Int,
         @SerializedName("TotalRecovered")
         val totalRecovered: Int
-) {
-}
+)

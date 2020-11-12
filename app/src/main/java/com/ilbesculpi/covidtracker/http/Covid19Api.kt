@@ -1,5 +1,6 @@
 package com.ilbesculpi.covidtracker.http
 
+import com.ilbesculpi.covidtracker.models.Country
 import com.ilbesculpi.covidtracker.models.CountrySummary
 import com.ilbesculpi.covidtracker.models.GlobalSummary
 import retrofit2.Call
@@ -18,5 +19,8 @@ interface Covid19Api {
 
     @GET("/summary")
     fun getGlobalSummary() : Call<SummaryResponse>
+
+    @GET("/countries")
+    fun getCountryList() : Call<List<Country>>
 
 }
