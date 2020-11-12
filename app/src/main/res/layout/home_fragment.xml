@@ -10,28 +10,38 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:orientation="horizontal">
         <com.ilbesculpi.covidtracker.ui.controls.StatsView
             android:id="@+id/stats_new_confirmed"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
             android:background="@color/confirmed"
-            app:text="@string/new_confirmed"
+            app:title="@string/new_confirmed"
             app:value="0" />
         <com.ilbesculpi.covidtracker.ui.controls.StatsView
             android:id="@+id/stats_new_deaths"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:background="@color/deaths"
-            app:text="@string/new_deaths"
+            app:title="@string/new_deaths"
             app:value="0" />
         <com.ilbesculpi.covidtracker.ui.controls.StatsView
             android:id="@+id/stats_new_recovered"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
             android:background="@color/recovered"
-            app:text="@string/new_recovered"
+            app:title="@string/new_recovered"
             app:value="0" />
     </LinearLayout>
 
@@ -39,28 +49,38 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:orientation="horizontal">
         <com.ilbesculpi.covidtracker.ui.controls.StatsView
             android:id="@+id/stats_total_confirmed"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
             android:background="@color/confirmed"
-            app:text="@string/total_confirmed"
+            app:title="@string/total_confirmed"
             app:value="0" />
         <com.ilbesculpi.covidtracker.ui.controls.StatsView
             android:id="@+id/stats_total_deaths"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:background="@color/deaths"
-            app:text="@string/total_deaths"
+            app:title="@string/total_deaths"
             app:value="0" />
         <com.ilbesculpi.covidtracker.ui.controls.StatsView
             android:id="@+id/stats_total_recovered"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
             android:background="@color/recovered"
-            app:text="@string/total_recovered"
+            app:title="@string/total_recovered"
             app:value="0" />
     </LinearLayout>
 
