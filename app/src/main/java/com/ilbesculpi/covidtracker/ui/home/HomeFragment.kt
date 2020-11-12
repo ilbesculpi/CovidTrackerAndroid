@@ -28,16 +28,16 @@ class HomeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        //val view = inflater.inflate(R.layout.home_fragment, container, false)
-        binding = HomeFragmentBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        binding = HomeFragmentBinding.inflate(inflater, container, false);
+        val view = binding.root;
+        return view;
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        viewModel.fetchSummary()
+
+        super.onActivityCreated(savedInstanceState);
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java);
+
         viewModel.globalSummary.observe(this, {
             binding.statsNewConfirmed.count = it.newConfirmed.formatThousands()
             binding.statsNewDeaths.count = it.newDeaths.formatThousands()
@@ -45,9 +45,21 @@ class HomeFragment : Fragment() {
             binding.statsTotalConfirmed.count = it.totalConfirmed.formatThousands()
             binding.statsTotalDeaths.count = it.totalDeaths.formatThousands()
             binding.statsTotalRecovered.count = it.totalRecovered.formatThousands()
-        })
+        });
+
+        viewModel.loading.observe(this, {
+            binding.loadingIndicator.visibility = if( it ) View.VISIBLE else View.INVISIBLE;
+        });
+
+        viewModel.fetchSummary();
+
+        binding.buttonCountries.setOnClickListener { displayCountriesScreen() }
     }
 
     /// endregion
+
+    fun displayCountriesScreen() {
+        // TODO: navigate to countries screen
+    }
 
 }
