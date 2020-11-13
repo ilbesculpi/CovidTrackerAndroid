@@ -18,14 +18,15 @@ const val TAG = "CovidTrackerLog"
 class HomeViewModel : ViewModel() {
 
     /// region Properties
-    lateinit var service: Covid19Api;
-    var globalSummary: MutableLiveData<GlobalSummary> = MutableLiveData();
-    var countrySummary: MutableLiveData<List<CountrySummary>> = MutableLiveData();
-    var loading: MutableLiveData<Boolean> = MutableLiveData();
+    lateinit var service: Covid19Api
+    var loading: MutableLiveData<Boolean> = MutableLiveData()
+    var globalSummary: MutableLiveData<GlobalSummary> = MutableLiveData()
+    var countrySummary: MutableLiveData<List<CountrySummary>> = MutableLiveData()
     /// endregion
 
     init {
         initApiService()
+        fetchSummary()
     }
 
     private fun initApiService() {
@@ -39,6 +40,8 @@ class HomeViewModel : ViewModel() {
     }
 
     fun fetchSummary() {
+
+        println("fetchSummary()");
 
         loading.postValue(true);
 
