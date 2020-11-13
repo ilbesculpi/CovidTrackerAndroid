@@ -17,12 +17,16 @@ const val TAG = "CovidTrackerLog"
 
 class HomeViewModel : ViewModel() {
 
+    /// region Properties
     lateinit var service: Covid19Api
+    var loading: MutableLiveData<Boolean> = MutableLiveData()
     var globalSummary: MutableLiveData<GlobalSummary> = MutableLiveData()
     var countrySummary: MutableLiveData<List<CountrySummary>> = MutableLiveData()
+    /// endregion
 
     init {
         initApiService()
+        fetchSummary()
     }
 
     private fun initApiService() {
@@ -37,30 +41,38 @@ class HomeViewModel : ViewModel() {
 
     fun fetchSummary() {
 
+        println("fetchSummary()");
+
+        loading.postValue(true);
+
         service.getGlobalSummary().enqueue(object : Callback<SummaryResponse> {
 
             override fun onResponse(call: Call<SummaryResponse>, response: Response<SummaryResponse>) {
 
                 if( !response.isSuccessful ) {
-                    showError(response.message())
-                    return
+                    displayError(response.message());
+                    loading.postValue(false);
+                    return;
                 }
 
                 if( response.body() != null ) {
-                    globalSummary.postValue( response.body()!!.Global )
-                    countrySummary.postValue( response.body()!!.Countries )
+                    globalSummary.postValue( response.body()!!.Global );
+                    countrySummary.postValue( response.body()!!.Countries );
+                    loading.postValue(false);
                 }
 
             }
 
             override fun onFailure(call: Call<SummaryResponse>, t: Throwable) {
-                showError(t.localizedMessage)
+                loading.postValue(false);
+                displayError(t.localizedMessage);
             }
 
-        })
+        });
     }
 
-    fun showError(message: String) {
-        Log.e(TAG, "showError: ${message}")
+    fun displayError(message: String) {
+        Log.e(TAG, "showError: $message");
     }
+
 }
