@@ -1,5 +1,6 @@
 package com.ilbesculpi.covidtracker.ui.controls
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -11,6 +12,7 @@ import android.widget.TextView
 import com.ilbesculpi.covidtracker.R
 import com.ilbesculpi.covidtracker.utils.darken
 
+@SuppressLint("ResourceAsColor")
 class StatsView(context: Context, attrs: AttributeSet): LinearLayout(context, attrs) {
 
     var title: String
@@ -42,7 +44,9 @@ class StatsView(context: Context, attrs: AttributeSet): LinearLayout(context, at
             try {
                 val titleText = getText(R.styleable.StatsView_title).toString()
                 val countText = getText(R.styleable.StatsView_value).toString()
+                val color = getColor(R.styleable.StatsView_color, R.color.white)
                 display(titleText, countText)
+                labelCount.setTextColor(color)
             }
             finally {
                 recycle()
@@ -57,8 +61,8 @@ class StatsView(context: Context, attrs: AttributeSet): LinearLayout(context, at
         labelCount = view.findViewById(R.id.labelCount)
         footerView = view.findViewById(R.id.footer)
         // set footer background color
-        val footerColor = (view.background as ColorDrawable).darken(2.5f)
-        footerView.background = footerColor
+        //val footerColor = (view.background as ColorDrawable).darken(2.5f)
+        //footerView.background = footerColor
     }
 
     private fun display(title: String, count: String) {

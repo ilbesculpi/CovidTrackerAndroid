@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/stats">
 
     <TextView
         android:id="@+id/labelCount"
@@ -12,7 +13,7 @@
         android:layout_gravity="center"
         android:paddingVertical="32dp"
         style="@style/StatsView.Count"
-        android:text="0"
+        android:text="100,000"
         tools:ignore="HardcodedText" />
 
     <LinearLayout
@@ -20,8 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center"
-        android:paddingVertical="8dp"
-        android:background="@color/recovered">
+        android:paddingVertical="8dp">
         <TextView
             android:id="@+id/labelTitle"
             android:layout_width="wrap_content"

@@ -4,7 +4,10 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ilbesculpi.covidtracker.http.Covid19Api
+import com.ilbesculpi.covidtracker.http.SummaryResponse
 import com.ilbesculpi.covidtracker.models.Country
+import com.ilbesculpi.covidtracker.models.CountrySummary
+import com.ilbesculpi.covidtracker.models.GlobalSummary
 import com.ilbesculpi.covidtracker.ui.home.TAG
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,12 +22,12 @@ class CountryListViewModel : ViewModel() {
     /// region Properties
     lateinit var service: Covid19Api
     var loading: MutableLiveData<Boolean> = MutableLiveData()
-    var countryList: MutableLiveData<List<Country>> = MutableLiveData()
+    var countryList: MutableLiveData<List<CountrySummary>> = MutableLiveData()
     /// endregion
 
     init {
         initApiService()
-        fetchCountryList()
+        fetchSummary()
     }
 
     private fun initApiService() {
@@ -37,15 +40,15 @@ class CountryListViewModel : ViewModel() {
         this.service = retrofit.create(Covid19Api::class.java)
     }
 
-    private fun fetchCountryList() {
+    private fun fetchSummary() {
 
-        println("fetchCountryList()");
+        println("fetchSummary()");
 
         loading.postValue(true);
 
-        service.getCountryList().enqueue(object : Callback<List<Country>> {
+        service.getGlobalSummary().enqueue(object : Callback<SummaryResponse> {
 
-            override fun onResponse(call: Call<List<Country>>, response: Response<List<Country>>) {
+            override fun onResponse(call: Call<SummaryResponse>, response: Response<SummaryResponse>) {
 
                 if( !response.isSuccessful ) {
                     displayError(response.message())
@@ -55,9 +58,10 @@ class CountryListViewModel : ViewModel() {
 
                 if( response.body() != null ) {
 
-                    var items = response.body()!!
-                    Collections.sort(items, object: Comparator<Country> {
-                        override fun compare(o1: Country?, o2: Country?): Int {
+                    val summary = response.body()!!
+                    val items = summary.Countries
+                    Collections.sort(items, object: Comparator<CountrySummary> {
+                        override fun compare(o1: CountrySummary?, o2: CountrySummary?): Int {
                             if( o1 != null && o2 != null ) {
                                 return o1.country.compareTo(o2.country)
                             }
@@ -73,7 +77,7 @@ class CountryListViewModel : ViewModel() {
 
             }
 
-            override fun onFailure(call: Call<List<Country>>, t: Throwable) {
+            override fun onFailure(call: Call<SummaryResponse>, t: Throwable) {
                 loading.postValue(false);
                 displayError(t.localizedMessage);
             }

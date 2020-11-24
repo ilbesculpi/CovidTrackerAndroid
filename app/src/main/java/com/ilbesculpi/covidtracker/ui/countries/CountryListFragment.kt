@@ -46,7 +46,7 @@ class CountryListFragment : Fragment() {
 
     }
 
-    fun initListView() {
+    private fun initListView() {
         binding.listView.setHasFixedSize(true)
         val linearLayoutManager = LinearLayoutManager(context)
         binding.listView.layoutManager = linearLayoutManager
