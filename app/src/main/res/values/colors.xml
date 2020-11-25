@@ -20,8 +20,8 @@
     <color name="secondaryTextColor">#000000</color>
 
     <color name="stats">#384149</color>
-    <color name="confirmed">#EDF2F6</color>
-    <color name="deaths">#FEF4F5</color>
-    <color name="recovered">#F0FFF4</color>
+    <color name="confirmed">#718196</color>
+    <color name="deaths">#E53E3E</color>
+    <color name="recovered">#37A269</color>
 
 </resources>

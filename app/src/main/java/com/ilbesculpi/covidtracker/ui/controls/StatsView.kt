@@ -33,7 +33,6 @@ class StatsView(context: Context, attrs: AttributeSet): LinearLayout(context, at
 
     private lateinit var labelTitle: TextView
     private lateinit var labelCount: TextView
-    private lateinit var footerView: ViewGroup
 
     init {
         
@@ -44,7 +43,7 @@ class StatsView(context: Context, attrs: AttributeSet): LinearLayout(context, at
             try {
                 val titleText = getText(R.styleable.StatsView_title).toString()
                 val countText = getText(R.styleable.StatsView_value).toString()
-                val color = getColor(R.styleable.StatsView_color, R.color.white)
+                val color = getColorStateList(R.styleable.StatsView_accent)
                 display(titleText, countText)
                 labelCount.setTextColor(color)
             }
@@ -59,7 +58,7 @@ class StatsView(context: Context, attrs: AttributeSet): LinearLayout(context, at
         val view = inflater.inflate(R.layout.stats_view, this, true)
         labelTitle = view.findViewById(R.id.labelTitle)
         labelCount = view.findViewById(R.id.labelCount)
-        footerView = view.findViewById(R.id.footer)
+        //footerView = view.findViewById(R.id.footer)
         // set footer background color
         //val footerColor = (view.background as ColorDrawable).darken(2.5f)
         //footerView.background = footerColor

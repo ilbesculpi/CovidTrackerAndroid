@@ -33,7 +33,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            app:color="@color/confirmed"
+            app:accent="@color/confirmed"
             app:title="@string/new_confirmed"
             app:value="0" />
 
@@ -45,7 +45,7 @@
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:background="@color/deaths"
-            app:color="@color/deaths"
+            app:accent="@color/deaths"
             app:title="@string/new_deaths"
             app:value="0" />
 
@@ -56,7 +56,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
             android:layout_weight="1"
-            app:color="@color/recovered"
+            app:accent="@color/recovered"
             app:title="@string/new_recovered"
             app:value="0" />
     </LinearLayout>
@@ -80,7 +80,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            app:color="@color/confirmed"
+            app:accent="@color/confirmed"
             app:title="@string/total_confirmed"
             app:value="0" />
 
@@ -91,7 +91,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            app:color="@color/deaths"
+            app:accent="@color/deaths"
             app:title="@string/total_deaths"
             app:value="0" />
 
@@ -102,7 +102,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="16dp"
             android:layout_weight="1"
-            app:color="@color/recovered"
+            app:accent="@color/recovered"
             app:title="@string/total_recovered"
             app:value="0" />
     </LinearLayout>
