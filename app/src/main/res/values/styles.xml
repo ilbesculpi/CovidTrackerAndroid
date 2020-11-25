@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="StatsView">
+    </style>
+    <style name="StatsView.Title">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="StatsView.Count">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="TableList"></style>
+    <style name="TableList.Col">
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="TableList.Header" parent="TableList.Col">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+</resources>

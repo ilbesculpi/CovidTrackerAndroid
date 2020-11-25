@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/stats">
+
+    <TextView
+        android:id="@+id/labelTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:textAlignment="center"
+        style="@style/StatsView.Title"
+        android:text="Total Cases"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/labelCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingVertical="16dp"
+        style="@style/StatsView.Count"
+        android:text="100,000"
+        tools:ignore="HardcodedText" />
+
+
+</LinearLayout>
