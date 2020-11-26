@@ -19,6 +19,20 @@
         android:id="@+id/countryListFragment"
         android:name="com.ilbesculpi.covidtracker.ui.countries.CountryListFragment"
         android:label="country_list_fragment"
-        tools:layout="@layout/country_list_fragment" />
+        tools:layout="@layout/country_list_fragment" >
+        <action
+            android:id="@+id/displayCountryStatsFragment"
+            app:destination="@id/countryStatsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/countryStatsFragment"
+        android:name="com.ilbesculpi.covidtracker.ui.countries.CountryStatsFragment"
+        android:label="country_stats_fragment"
+        tools:layout="@layout/country_stats_fragment" >
+        <argument
+            android:name="country"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

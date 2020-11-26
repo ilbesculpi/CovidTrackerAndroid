@@ -24,4 +24,12 @@ data class CountrySummary(
         val totalRecovered: Int,
         @SerializedName("Date")
         val date: Date
-)
+) {
+        val flagIcon: String
+                get() {
+                        if( this.countryCode.toLowerCase() == "do" ) {
+                                return "flag_do"
+                        }
+                        return this.countryCode.toLowerCase()
+                }
+}

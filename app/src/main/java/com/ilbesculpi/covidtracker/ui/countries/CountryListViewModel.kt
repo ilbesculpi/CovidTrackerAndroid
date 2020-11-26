@@ -42,9 +42,9 @@ class CountryListViewModel : ViewModel() {
 
     private fun fetchSummary() {
 
-        println("fetchSummary()");
+        println("fetchSummary()")
 
-        loading.postValue(true);
+        loading.postValue(true)
 
         service.getGlobalSummary().enqueue(object : Callback<SummaryResponse> {
 
