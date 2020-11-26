@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +26,15 @@ class CountryListAdapter(private val countries: List<CountrySummary>, val contex
     }
     /// endregion
 
+
+    /// region Properties
+    lateinit var listener: OnClickListener
+    ///
+
+    interface OnClickListener {
+        fun onItemClick(v: View, position: Int, item: CountrySummary)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.row_country_item, parent, false)
@@ -37,7 +47,7 @@ class CountryListAdapter(private val countries: List<CountrySummary>, val contex
 
         val resId = context.resources.getIdentifier(
             country.flagIcon,
-            "mipmap",
+            "drawable",
             context.packageName
         )
         holder.flagIcon.setImageResource(resId)
@@ -45,6 +55,10 @@ class CountryListAdapter(private val countries: List<CountrySummary>, val contex
         holder.labelConfirmed.text = country.totalConfirmed.formatThousands()
         holder.labelDeaths.text = country.totalDeaths.formatThousands()
         holder.labelRecovered.text = country.totalRecovered.formatThousands()
+
+        holder.itemView.setOnClickListener {
+            listener.onItemClick(holder.itemView, position, country)
+        }
     }
 
     override fun getItemCount(): Int {

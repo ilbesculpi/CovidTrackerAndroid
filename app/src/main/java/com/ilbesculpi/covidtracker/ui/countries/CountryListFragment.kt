@@ -8,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.ilbesculpi.covidtracker.R
 import com.ilbesculpi.covidtracker.databinding.CountryListFragmentBinding
+import com.ilbesculpi.covidtracker.models.CountrySummary
 
-class CountryListFragment : Fragment() {
+class CountryListFragment : Fragment(), CountryListAdapter.OnClickListener {
 
     /// region - Properties
     private lateinit var viewModel: CountryListViewModel
@@ -41,6 +43,7 @@ class CountryListFragment : Fragment() {
 
         viewModel.countryList.observe(viewLifecycleOwner, {
             adapter = CountryListAdapter(it, requireContext())
+            adapter.listener = this
             binding.listView.adapter = adapter
         })
 
@@ -50,6 +53,13 @@ class CountryListFragment : Fragment() {
         binding.listView.setHasFixedSize(true)
         val linearLayoutManager = LinearLayoutManager(context)
         binding.listView.layoutManager = linearLayoutManager
+    }
+
+    override fun onItemClick(v: View, position: Int, item: CountrySummary) {
+        val snack = Snackbar.make(binding.root, "Selected country ${item.country}", Snackbar.LENGTH_LONG)
+        snack.show()
+        val action = CountryListFragmentDirections.displayCountryStatsFragment(item.countryCode)
+        navController.navigate(action)
     }
 
 }
