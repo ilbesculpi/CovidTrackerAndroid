@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.findNavController
 import com.ilbesculpi.covidtracker.databinding.HomeFragmentBinding
 import com.ilbesculpi.covidtracker.utils.formatThousands
@@ -46,15 +47,13 @@ class HomeFragment : Fragment() {
             binding.statsTotalRecovered.count = it.totalRecovered.formatThousands()
         })
 
-        binding.buttonCountries.setOnClickListener { displayCountriesScreen() }
+        viewModel.errorMessage.observe(viewLifecycleOwner, {
+            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+        })
+
     }
 
     /// endregion
 
-
-    private fun displayCountriesScreen() {
-        val action = HomeFragmentDirections.displayCountryListFragment()
-        navController.navigate(action)
-    }
 
 }

@@ -20,6 +20,7 @@ class HomeViewModel : ViewModel() {
     /// region Properties
     lateinit var service: Covid19Api
     var loading: MutableLiveData<Boolean> = MutableLiveData()
+    var errorMessage: MutableLiveData<String> = MutableLiveData()
     var globalSummary: MutableLiveData<GlobalSummary> = MutableLiveData()
     var countrySummary: MutableLiveData<List<CountrySummary>> = MutableLiveData()
     /// endregion
@@ -50,8 +51,8 @@ class HomeViewModel : ViewModel() {
             override fun onResponse(call: Call<SummaryResponse>, response: Response<SummaryResponse>) {
 
                 if( !response.isSuccessful ) {
-                    displayError(response.message());
                     loading.postValue(false);
+                    displayError(response.message());
                     return;
                 }
 
@@ -71,8 +72,9 @@ class HomeViewModel : ViewModel() {
         });
     }
 
-    fun displayError(message: String) {
-        Log.e(TAG, "showError: $message");
+    private fun displayError(message: String) {
+        Log.e(TAG, "fetchSummary error: $message");
+        errorMessage.postValue(message);
     }
 
 }
