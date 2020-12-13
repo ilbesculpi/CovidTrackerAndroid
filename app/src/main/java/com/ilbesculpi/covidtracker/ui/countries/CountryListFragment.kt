@@ -35,17 +35,18 @@ class CountryListFragment : Fragment(), CountryListAdapter.OnClickListener {
 
         super.onActivityCreated(savedInstanceState)
         initListView()
+
         viewModel = ViewModelProvider(this).get(CountryListViewModel::class.java)
 
-        viewModel.loading.observe(viewLifecycleOwner, {
+        viewModel.loading.observe(viewLifecycleOwner) {
             binding.loadingIndicator.visibility = if( it ) View.VISIBLE else View.INVISIBLE
-        })
+        }
 
-        viewModel.countryList.observe(viewLifecycleOwner, {
+        viewModel.countryList.observe(viewLifecycleOwner) {
             adapter = CountryListAdapter(it, requireContext())
             adapter.listener = this
             binding.listView.adapter = adapter
-        })
+        }
 
     }
 

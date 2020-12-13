@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.ilbesculpi.covidtracker.databinding.HomeFragmentBinding
 import com.ilbesculpi.covidtracker.utils.formatThousands
@@ -34,22 +35,22 @@ class HomeFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
-        viewModel.loading.observe(viewLifecycleOwner, {
+        viewModel.loading.observe(viewLifecycleOwner) {
             binding.loadingIndicator.visibility = if( it ) View.VISIBLE else View.INVISIBLE
-        })
+        }
 
-        viewModel.globalSummary.observe(viewLifecycleOwner, {
+        viewModel.globalSummary.observe(viewLifecycleOwner) {
             binding.statsNewConfirmed.count = it.newConfirmed.formatThousands()
             binding.statsNewDeaths.count = it.newDeaths.formatThousands()
             binding.statsNewRecovered.count = it.newRecovered.formatThousands()
             binding.statsTotalConfirmed.count = it.totalConfirmed.formatThousands()
             binding.statsTotalDeaths.count = it.totalDeaths.formatThousands()
             binding.statsTotalRecovered.count = it.totalRecovered.formatThousands()
-        })
+        }
 
-        viewModel.errorMessage.observe(viewLifecycleOwner, {
+        viewModel.errorMessage.observe(viewLifecycleOwner) {
             Toast.makeText(context, it, Toast.LENGTH_LONG).show()
-        })
+        }
 
     }
 

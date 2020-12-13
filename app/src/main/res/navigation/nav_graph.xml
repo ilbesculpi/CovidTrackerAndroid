@@ -3,20 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/home">
 
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/home"
         android:name="com.ilbesculpi.covidtracker.ui.home.HomeFragment"
         android:label="home_fragment"
-        tools:layout="@layout/home_fragment" >
-        <action
-            android:id="@+id/displayCountryListFragment"
-            app:destination="@id/countryListFragment" />
-    </fragment>
+        tools:layout="@layout/home_fragment" />
 
     <fragment
-        android:id="@+id/countryListFragment"
+        android:id="@+id/country_list"
         android:name="com.ilbesculpi.covidtracker.ui.countries.CountryListFragment"
         android:label="country_list_fragment"
         tools:layout="@layout/country_list_fragment" >

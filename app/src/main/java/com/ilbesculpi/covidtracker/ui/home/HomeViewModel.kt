@@ -7,6 +7,8 @@ import com.ilbesculpi.covidtracker.http.Covid19Api
 import com.ilbesculpi.covidtracker.http.SummaryResponse
 import com.ilbesculpi.covidtracker.models.CountrySummary
 import com.ilbesculpi.covidtracker.models.GlobalSummary
+import com.ilbesculpi.covidtracker.persistence.SummaryRepository
+import com.ilbesculpi.covidtracker.persistence.SummaryService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,7 +20,7 @@ const val TAG = "CovidTrackerLog"
 class HomeViewModel : ViewModel() {
 
     /// region Properties
-    lateinit var service: Covid19Api
+    var service: SummaryService = SummaryRepository()
     var loading: MutableLiveData<Boolean> = MutableLiveData()
     var errorMessage: MutableLiveData<String> = MutableLiveData()
     var globalSummary: MutableLiveData<GlobalSummary> = MutableLiveData()
@@ -26,19 +28,10 @@ class HomeViewModel : ViewModel() {
     /// endregion
 
     init {
-        initApiService()
         fetchSummary()
     }
 
-    private fun initApiService() {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(Covid19Api.BASE_URL)
-            .addConverterFactory(
-                GsonConverterFactory.create()
-            )
-            .build()
-        this.service = retrofit.create(Covid19Api::class.java)
-    }
+
 
     fun fetchSummary() {
 
@@ -46,7 +39,7 @@ class HomeViewModel : ViewModel() {
 
         loading.postValue(true);
 
-        service.getGlobalSummary().enqueue(object : Callback<SummaryResponse> {
+        service.fetchSummary().enqueue(object : Callback<SummaryResponse> {
 
             override fun onResponse(call: Call<SummaryResponse>, response: Response<SummaryResponse>) {
 
