@@ -18,7 +18,6 @@ import javax.inject.Inject
 const val TAG = "CovidTrackerLog"
 
 class HomeViewModel @ViewModelInject constructor(
-    @Assisted private val stateHandle: SavedStateHandle,
     private val service: SummaryRepository
     ) : ViewModel() {
 
@@ -34,8 +33,6 @@ class HomeViewModel @ViewModelInject constructor(
     }
 
     fun fetchSummary() {
-
-        println("fetchSummary()");
 
         loading.postValue(true);
 

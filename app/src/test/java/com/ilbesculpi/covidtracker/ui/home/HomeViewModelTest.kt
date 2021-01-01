@@ -1,20 +1,18 @@
 package com.ilbesculpi.covidtracker.ui.home
 
-import android.provider.ContactsContract.CommonDataKinds.Email
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.ilbesculpi.covidtracker.http.SummaryResponse
 import com.ilbesculpi.covidtracker.models.GlobalSummary
 import com.ilbesculpi.covidtracker.repository.SummaryRepository
+import okhttp3.Request
+import okio.Timeout
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.mockito.ArgumentCaptor
-import org.mockito.Captor
-import org.mockito.Mock
+import org.mockito.*
 import org.mockito.Mockito.*
-import org.mockito.MockitoAnnotations
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -56,21 +54,12 @@ class HomeViewModelTest {
         autoCloseable = MockitoAnnotations.openMocks(this)
         //mockRepository = mock(SummaryRepository::class.java)
 
-        val summary = GlobalSummary(
-                0,
-                10,
-                20,
-                30,
-                40,
-                50)
-        val sr = SummaryResponse(summary, listOf())
-        val response = Response.success(sr)
-        //`when`(callback).thenReturn(response)
-        
-        `when`(callback.enqueue(argsCaptor.capture())).then {
+        // Create Repository Stub
+        //mockRepository = SummaryRepositoryStub()
+        //mockRepository.thenReturn(sr)
 
-        }
-        `when`(mockRepository.fetchSummary()).thenReturn(callback)
+        // Create ViewModel
+        viewModel = HomeViewModel(mockRepository)
     }
 
     @After
@@ -78,27 +67,86 @@ class HomeViewModelTest {
         autoCloseable.close()
     }
 
+    private fun makeSuccessResponse(summary: GlobalSummary) : Call<SummaryResponse> {
+
+        return object : Call<SummaryResponse> {
+
+            override fun execute(): Response<SummaryResponse> {
+                TODO("Not yet implemented")
+            }
+
+            override fun enqueue(callback: Callback<SummaryResponse>) {
+                val response = SummaryResponse(summary, listOf())
+                val rs = Response.success(response)
+                callback.onResponse(this, rs)
+            }
+
+            override fun isExecuted(): Boolean {
+                TODO("Not yet implemented")
+            }
+
+            override fun isCanceled(): Boolean {
+                TODO("Not yet implemented")
+            }
+
+            override fun cancel() {
+                TODO("Not yet implemented")
+            }
+
+            override fun request(): Request {
+                TODO("Not yet implemented")
+            }
+
+            override fun timeout(): Timeout {
+                TODO("Not yet implemented")
+            }
+
+            override fun clone(): Call<SummaryResponse> {
+                TODO("Not yet implemented")
+            }
+        }
+    }
 
     @Test
     fun testLoadingWhenFetchData() {
 
-        viewModel = HomeViewModel(mockRepository)
+        val summary = GlobalSummary(
+                0,
+                10,
+                20,
+                30,
+                40,
+                50)
+        val callResponse = makeSuccessResponse(summary)
+
+        `when`(mockRepository.fetchSummary()).thenReturn(callResponse)
+
         viewModel.loading.observeForever(loadingObserver)
 
-        //verify(loadingObserver).onChanged(false)
         viewModel.fetchSummary()
         verify(loadingObserver).onChanged(true)
         verify(loadingObserver).onChanged(false)
-        
     }
 
     @Test
     fun testFetchSummaryData() {
 
-        viewModel = HomeViewModel(mockRepository)
+        val summary = GlobalSummary(
+                0,
+                10,
+                20,
+                30,
+                40,
+                50)
+        val callResponse = makeSuccessResponse(summary)
+
+        `when`(mockRepository.fetchSummary()).thenReturn(callResponse)
+
         viewModel.globalSummary.observeForever(summaryObserver)
 
         viewModel.fetchSummary()
+
+        // Expect summary data
         val expected = GlobalSummary(
                 0,
                 10,
@@ -108,6 +156,29 @@ class HomeViewModelTest {
                 50
         )
         verify(summaryObserver).onChanged(expected)
+    }
+
+    @Test
+    fun testRepositoryInteractions() {
+
+        val summary = GlobalSummary(
+                0,
+                10,
+                20,
+                30,
+                40,
+                50)
+        val callResponse = makeSuccessResponse(summary)
+
+        `when`(mockRepository.fetchSummary()).thenReturn(callResponse)
+
+        // Then: call fetchSummary()
+        viewModel.fetchSummary()
+
+        // Expect: summary::fetchSummary() to be called once
+        verify(mockRepository, times(1)).fetchSummary()
+
+
     }
 
 }
