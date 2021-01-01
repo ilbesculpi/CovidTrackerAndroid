@@ -1,9 +1,9 @@
-package com.ilbesculpi.covidtracker.persistence
+package com.ilbesculpi.covidtracker.repository
 
 import com.ilbesculpi.covidtracker.http.SummaryResponse
 import retrofit2.Call
 
-interface SummaryService {
+interface SummaryRepository {
 
     fun fetchSummary() : Call<SummaryResponse>
 

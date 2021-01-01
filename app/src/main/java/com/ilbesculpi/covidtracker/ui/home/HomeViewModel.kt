@@ -1,26 +1,27 @@
 package com.ilbesculpi.covidtracker.ui.home
 
 import android.util.Log
+import androidx.hilt.Assisted
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.ilbesculpi.covidtracker.http.Covid19Api
 import com.ilbesculpi.covidtracker.http.SummaryResponse
 import com.ilbesculpi.covidtracker.models.CountrySummary
 import com.ilbesculpi.covidtracker.models.GlobalSummary
-import com.ilbesculpi.covidtracker.persistence.SummaryRepository
-import com.ilbesculpi.covidtracker.persistence.SummaryService
+import com.ilbesculpi.covidtracker.repository.SummaryRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
 const val TAG = "CovidTrackerLog"
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel @ViewModelInject constructor(
+    private val service: SummaryRepository
+    ) : ViewModel() {
 
     /// region Properties
-    var service: SummaryService = SummaryRepository()
     var loading: MutableLiveData<Boolean> = MutableLiveData()
     var errorMessage: MutableLiveData<String> = MutableLiveData()
     var globalSummary: MutableLiveData<GlobalSummary> = MutableLiveData()
@@ -28,14 +29,10 @@ class HomeViewModel : ViewModel() {
     /// endregion
 
     init {
-        fetchSummary()
+        //fetchSummary()
     }
 
-
-
     fun fetchSummary() {
-
-        println("fetchSummary()");
 
         loading.postValue(true);
 
@@ -50,9 +47,9 @@ class HomeViewModel : ViewModel() {
                 }
 
                 if( response.body() != null ) {
+                    loading.postValue(false);
                     globalSummary.postValue( response.body()!!.Global );
                     countrySummary.postValue( response.body()!!.Countries );
-                    loading.postValue(false);
                 }
 
             }

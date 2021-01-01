@@ -12,7 +12,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.ilbesculpi.covidtracker.R
 import com.ilbesculpi.covidtracker.databinding.CountryListFragmentBinding
 import com.ilbesculpi.covidtracker.models.CountrySummary
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CountryListFragment : Fragment(), CountryListAdapter.OnClickListener {
 
     /// region - Properties
